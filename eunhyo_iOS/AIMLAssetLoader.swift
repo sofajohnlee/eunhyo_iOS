@@ -14,7 +14,7 @@ struct AIMLBundleCategory {
 
 final class AIMLAssetLoader {
     func loadCategories(bundle: Bundle = .main) -> [AIMLBundleCategory] {
-        AIMLAssetManifest.aimlFiles.flatMap { name in
+        return AIMLAssetManifest.aimlFiles.flatMap { name -> [AIMLBundleCategory] in
             guard let url = bundle.url(forResource: name, withExtension: "aiml", subdirectory: "Hari/aiml"),
                   let text = try? String(contentsOf: url, encoding: .utf8) else { return [] }
             return parseCategories(text)
