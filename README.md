@@ -2,9 +2,9 @@
 
 SwiftUI native iOS port of `sofajohnlee/eunhyo2`.
 
-## Estimated port progress: 98%
+## Estimated port progress: 99%
 
-Progress is estimated by Android feature-module parity rather than raw file count. Major user-facing modules are implemented. Remaining work is concentrated in complete legacy asset copying and final Xcode simulator/device validation.
+Progress is estimated by Android feature-module parity rather than raw file count. Major user-facing modules are implemented and the project now passes an actual Xcode 16.4 iOS Simulator build in GitHub Actions. Remaining work is primarily final device/UI validation and deeper parity for a few legacy assets and advanced AIML template behaviors.
 
 ## Implemented
 
@@ -30,22 +30,26 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - JSON learning-data backup and restore baseline
 - Settings and local learning-state storage
 - AIML-compatible core with `*` / `_` wildcard matching, substitutions and predicate state
-- Bundled AIML asset loader with Android Hari asset manifest, config/predicate/property loading and simple category parsing
-- Hari resource folder added to Xcode Copy Bundle Resources
+- Bundled AIML asset loader with Android Hari asset manifest, config/predicate/property loading and category parsing
+- AI chat now uses the bundled Hari AIML engine first and falls back to the native Swift learning rules
+- Android Hari AIML/config assets are synchronized automatically by `scripts/sync_android_assets.sh`
+- Hari resource folder is copied into the iOS application bundle
 - Typing practice, maze practice and board-game score tracker
 
-## Build-safety work completed
+## Build verification
 
-- Xcode target explicitly includes all Swift source modules through `AIMLAssetLoader.swift`
-- Compatibility aliases added for earlier menu type names (`PDFLibraryView`, `SportsVideosView`, `MagicVideosView`)
-- Main navigation exposes the AIML-compatible chat and interactive geometry directly
-- Hari resource folder is configured as a bundled resource folder
-- Project marketing version is 1.7
+- GitHub Actions workflow: `.github/workflows/ios-build.yml`
+- Runner: macOS 15
+- Xcode: 16.4
+- Target: iOS Simulator, Debug, iOS 17+
+- Android Hari asset synchronization: passed (12 AIML files, 8 config files)
+- `xcodebuild`: passed after fixing the AIML asset-loader type-inference error
+- Code signing is disabled in CI because the workflow validates simulator compilation rather than App Store signing
 
 ## Android parity work remaining
 
-Remaining work includes copying the complete legacy Hari AIML/config file set, complete phonics and education-link resource parity, remaining Korean-book image assets, complete media/song asset parity, broader Android-to-iOS migration coverage, automated macOS build checks, and final Xcode simulator/device validation.
+Remaining work is mainly final iPhone/iPad simulator and physical-device interaction review, richer handling of advanced AIML template tags such as `srai`, `set/get`, `random`, `bot` and conditional constructs, complete visual/media asset parity where Android-specific resources have no direct iOS equivalent, and broader legacy Android-data migration validation.
 
 ## Run
 
-Open `eunhyo_iOS.xcodeproj` in Xcode 16 or newer, select a signing team, choose an iPhone/iPad simulator or device, and Run.
+Open `eunhyo_iOS.xcodeproj` in Xcode 16 or newer, select a signing team, choose an iPhone/iPad simulator or device, and Run. If the Hari resource directory is not present in a fresh checkout, run `bash scripts/sync_android_assets.sh` first; GitHub Actions performs this synchronization automatically.
