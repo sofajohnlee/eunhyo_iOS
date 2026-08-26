@@ -1,0 +1,21 @@
+address:where
+age:how many
+bestfriend:who
+birthday:when
+birthplace:where
+city:which
+country:which
+customname:unknown
+email:what
+favoritebook:what
+favoritecolor:what
+favoritefood:what
+favoritesong:what
+favoritesport:what
+firstname:what
+gender:unknown
+location:where
+name:Friend
+newpattern:NORESP
+phonenumber:unknown
+topic:unknown
