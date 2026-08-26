@@ -2,9 +2,9 @@
 
 SwiftUI native iOS port of `sofajohnlee/eunhyo2`.
 
-## Estimated port progress: 96%
+## Estimated port progress: 98%
 
-Progress is estimated by Android feature-module parity rather than raw file count. Nearly all major user-facing modules now have native SwiftUI equivalents. Remaining work is concentrated in complete legacy asset parity, broader migration coverage, automated build verification, and final Xcode simulator/device validation.
+Progress is estimated by Android feature-module parity rather than raw file count. Major user-facing modules are implemented. Remaining work is concentrated in complete legacy asset copying and final Xcode simulator/device validation.
 
 ## Implemented
 
@@ -30,17 +30,21 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - JSON learning-data backup and restore baseline
 - Settings and local learning-state storage
 - AIML-compatible core with `*` / `_` wildcard matching, substitutions and predicate state
+- Bundled AIML asset loader with Android Hari asset manifest, config/predicate/property loading and simple category parsing
+- Hari resource folder added to Xcode Copy Bundle Resources
 - Typing practice, maze practice and board-game score tracker
 
 ## Build-safety work completed
 
-- Xcode target explicitly includes all Swift source modules through `AIMLCore.swift`
+- Xcode target explicitly includes all Swift source modules through `AIMLAssetLoader.swift`
 - Compatibility aliases added for earlier menu type names (`PDFLibraryView`, `SportsVideosView`, `MagicVideosView`)
-- Main navigation now exposes the AIML-compatible chat and interactive geometry directly
+- Main navigation exposes the AIML-compatible chat and interactive geometry directly
+- Hari resource folder is configured as a bundled resource folder
+- Project marketing version is 1.7
 
 ## Android parity work remaining
 
-Remaining work includes complete legacy AIML asset/template loading, complete phonics and education-link resource parity, remaining Korean-book image assets, complete media/song asset parity, broader Android-to-iOS data migration coverage, automated build checks, and Xcode simulator/device validation.
+Remaining work includes copying the complete legacy Hari AIML/config file set, complete phonics and education-link resource parity, remaining Korean-book image assets, complete media/song asset parity, broader Android-to-iOS migration coverage, automated macOS build checks, and final Xcode simulator/device validation.
 
 ## Run
 
