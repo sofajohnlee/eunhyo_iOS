@@ -9,20 +9,32 @@ struct FullFeatureMenuView: View {
             Section("영어") {
                 NavigationLink("알파벳 따라쓰기", destination: AlphabetTraceView())
                 NavigationLink("영어 단어 연습", destination: EnglishWordPracticeView())
+                NavigationLink("파닉스 색상 학습", destination: PhonicsColorView())
+                NavigationLink("영어 문장 CSV 가져오기", destination: EnglishSentenceImportView())
+                NavigationLink("PDF 자료실", destination: PDFLibraryView())
             }
             Section("국어") {
                 NavigationLink("맞춤법 연습", destination: KoreanSpellingPracticeView())
                 NavigationLink("관용 표현", destination: KoreanIdiomPracticeView())
+                NavigationLink("한글책", destination: KoreanBookView())
             }
             Section("수학·도형") {
                 NavigationLink("최대공약수·최소공배수", destination: GcdLcmView())
                 NavigationLink("단위와 측정", destination: ExtendedMeasurementView())
                 NavigationLink("도형 학습", destination: GeometryStudyView())
                 NavigationLink("그래프 도구", destination: GraphToolsView())
+                NavigationLink("수학 진도·상태", destination: MathProgressDashboardView())
             }
             Section("한자·세계") {
                 NavigationLink("한자 부수", destination: HanjaRadicalView())
                 NavigationLink("세계 여러 나라", destination: CountryStudyView())
+            }
+            Section("미디어·활동") {
+                NavigationLink("그림 연습", destination: DrawingPracticeView())
+                NavigationLink("미디어 자료실", destination: MediaLibraryView())
+                NavigationLink("교육 링크", destination: EducationLinksView())
+                NavigationLink("스포츠", destination: SportsVideosView())
+                NavigationLink("마술", destination: MagicVideosView())
             }
             Section("퀴즈·게임") {
                 NavigationLink("OX 골든벨", destination: GoldenBellView())
@@ -30,6 +42,9 @@ struct FullFeatureMenuView: View {
                 NavigationLink("타자 연습", destination: TypingPracticeView())
                 NavigationLink("미로", destination: MazePracticeView())
                 NavigationLink("보드게임 점수", destination: BoardGameScoreView())
+            }
+            Section("데이터") {
+                NavigationLink("데이터 백업·복원", destination: DataTransferView())
             }
         }
         .navigationTitle("전체 학습 기능")
