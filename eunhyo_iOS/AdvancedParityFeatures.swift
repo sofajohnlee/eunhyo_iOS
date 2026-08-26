@@ -1,8 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-// MARK: - Korean Book
-
 enum StoryPlot: Int, CaseIterable, Identifiable {
     case happy = 1, funny = 2, moving = 3
     var id: Int { rawValue }
@@ -20,7 +18,6 @@ struct KoreanBookView: View {
     @AppStorage("bookCharacter") private var character = 1
     @AppStorage("bookPlot") private var plotRaw = 1
     @AppStorage("bookLanguage") private var languageRaw = 1
-
     private var plot: StoryPlot { StoryPlot(rawValue: plotRaw) ?? .happy }
     private var language: StoryLanguage { StoryLanguage(rawValue: languageRaw) ?? .korean }
     private var story: String { makeStory(character: character, plot: plot, language: language) }
@@ -28,27 +25,19 @@ struct KoreanBookView: View {
     var body: some View {
         Form {
             Section("이야기 설정") {
-                Picker("주인공", selection: $character) {
-                    ForEach(1...13, id: \.self) { i in Text(characters[i-1]).tag(i) }
-                }
-                Picker("분위기", selection: $plotRaw) {
-                    ForEach(StoryPlot.allCases) { Text($0.title).tag($0.rawValue) }
-                }
-                Picker("언어", selection: $languageRaw) {
-                    ForEach(StoryLanguage.allCases) { Text($0.title).tag($0.rawValue) }
-                }
+                Picker("주인공", selection: $character) { ForEach(1...13, id: \.self) { i in Text(characters[i-1]).tag(i) } }
+                Picker("분위기", selection: $plotRaw) { ForEach(StoryPlot.allCases) { Text($0.title).tag($0.rawValue) } }
+                Picker("언어", selection: $languageRaw) { ForEach(StoryLanguage.allCases) { Text($0.title).tag($0.rawValue) } }
             }
             Section("이야기") {
                 Text(story)
                 Button("읽어주기") { SpeechService.shared.speak(story, language: language == .korean ? "ko-KR" : "en-US") }
                 NavigationLink("이야기 편집", destination: KoreanBookEditorView(initialText: story, language: language))
             }
-        }
-        .navigationTitle("한글책")
+        }.navigationTitle("한글책")
     }
 
     private func makeStory(character: Int, plot: StoryPlot, language: StoryLanguage) -> String {
-        let koNames = characters
         let enNames = ["Yujin Princess","White Princess","Aurora Princess","Cinderella Princess","Rapunzel Princess","Elsa Princess","Anna Princess","Princess Marie","Princess Marie's mom","Fairy","Vanellope","The Frog Prince","The Frog Prince"]
         if language == .korean {
             if character == 1 && plot == .happy { return "요즘 유진이는 그리기가 너무 좋아요. 그리고 그 날은 푸른아리선생님을 볼 수 있기 때문이죠. 선생님, 사랑해요. 엄마, 아빠도요^^" }
@@ -57,13 +46,12 @@ struct KoreanBookView: View {
             if character == 2 && plot == .funny { return "푸른아리선생님은 요즘 소리내어 웃는 일이 많아요. 그건 바로 ..." }
             if character == 1 && plot == .moving { return "유진이는 푸른아리선생님이 인사를 하면 너무 가슴이 두근두근 뛰고 감동이 밀려온대요. 어떻게 된 일일까요?" }
             if character == 2 && plot == .moving { return "푸른아리선생님은 화요일마다 유진이의 인사를 받으면 너무 감동이 밀려온답니다. 유진이가 너무 좋은데 어떡하죠?" }
-            let name = koNames[max(0, min(character-1, koNames.count-1))]
+            let name = characters[max(0, min(character-1, characters.count-1))]
             switch plot { case .happy: return "\(name)는 유진이를 만나서 행복했어요."; case .funny: return "\(name)는 유진이를 만나서 웃음이 나왔어요."; case .moving: return "\(name)에게 어떤 감동적인 이야기가 이어질까요?" }
-        } else {
-            if character == 1 && plot == .happy { return "Once upon a time, there was a Yujin Princess. Someday she had a stomachache. But she was brave and intelligent. The next day, she went to the children's hospital, took medicine, and soon felt better. She was happy because she was thinking of having fun with her daddy." }
-            let name = enNames[max(0, min(character-1, enNames.count-1))]
-            switch plot { case .happy: return "Once upon a time, there was \(name). Which happy story is there?"; case .funny: return "Once upon a time, there was \(name). Which funny story is there?"; case .moving: return "Once upon a time, there was \(name). Which moving story is there?" }
         }
+        if character == 1 && plot == .happy { return "Once upon a time, there was a Yujin Princess. Someday she had a stomachache. But she was brave and intelligent. The next day, she went to the children's hospital, took medicine, and soon felt better. She was happy because she was thinking of having fun with her daddy." }
+        let name = enNames[max(0, min(character-1, enNames.count-1))]
+        switch plot { case .happy: return "Once upon a time, there was \(name). Which happy story is there?"; case .funny: return "Once upon a time, there was \(name). Which funny story is there?"; case .moving: return "Once upon a time, there was \(name). Which moving story is there?" }
     }
 }
 
@@ -80,8 +68,6 @@ struct KoreanBookEditorView: View {
     }
 }
 
-// MARK: - Media
-
 struct LearningMediaItem: Identifiable { let id = UUID(); let title: String; let videoID: String; let group: String }
 
 enum LearningMediaCatalog {
@@ -96,16 +82,8 @@ enum LearningMediaCatalog {
 struct MediaLibraryView: View {
     @State private var query = ""
     private var filtered: [LearningMediaItem] { query.isEmpty ? LearningMediaCatalog.items : LearningMediaCatalog.items.filter { $0.title.localizedCaseInsensitiveContains(query) || $0.group.localizedCaseInsensitiveContains(query) } }
-    var body: some View {
-        List(filtered) { item in
-            Link(destination: URL(string: "https://www.youtube.com/watch?v=\(item.videoID)")!) {
-                VStack(alignment: .leading) { Text(item.title).font(.headline); Text(item.group).font(.caption).foregroundStyle(.secondary) }
-            }
-        }.searchable(text: $query).navigationTitle("미디어 자료실")
-    }
+    var body: some View { List(filtered) { item in Link(destination: URL(string: "https://www.youtube.com/watch?v=\(item.videoID)")!) { VStack(alignment: .leading) { Text(item.title).font(.headline); Text(item.group).font(.caption).foregroundStyle(.secondary) } } }.searchable(text: $query).navigationTitle("미디어 자료실") }
 }
-
-// MARK: - Math progress & state
 
 struct MathProgressDashboardView: View {
     @AppStorage("mathCorrect") private var correct = 0
@@ -122,18 +100,8 @@ struct MathProgressDashboardView: View {
     }
 }
 
-// MARK: - Backup / restore
-
 struct BackupPayload: Codable {
-    var selectedGrade: String
-    var mathCorrect: Int
-    var mathAttempts: Int
-    var mathState: Int
-    var studyNote: String
-    var bookCharacter: Int
-    var bookPlot: Int
-    var bookLanguage: Int
-    var savedEnglishSentences: String
+    var selectedGrade: String; var mathCorrect: Int; var mathAttempts: Int; var mathState: Int; var studyNote: String; var bookCharacter: Int; var bookPlot: Int; var bookLanguage: Int; var savedEnglishSentences: String
 }
 
 struct BackupDocument: FileDocument {
@@ -161,17 +129,24 @@ struct DataTransferView: View {
 
     var body: some View {
         Form {
-            Section("백업") {
-                Button("학습 데이터 내보내기") { prepareExport() }
-                Text("설정, 수학 진도, 메모, 한글책 설정, 영어 문장 저장 데이터를 JSON으로 백업합니다.").font(.caption).foregroundStyle(.secondary)
-            }
+            Section("백업") { Button("학습 데이터 내보내기") { prepareExport() }; Text("설정, 수학 진도, 메모, 한글책 설정, 영어 문장 저장 데이터를 JSON으로 백업합니다.").font(.caption).foregroundStyle(.secondary) }
             Section("복원") { Button("백업 파일 가져오기") { importing = true } }
             if !status.isEmpty { Section("상태") { Text(status) } }
         }
         .navigationTitle("데이터 백업·복원")
-        .fileExporter(isPresented: $exporting, document: exportDocument, contentType: .json, defaultFilename: "eunhyo_backup") { result in status = result.isSuccess ? "백업 파일을 저장했습니다." : "백업 저장에 실패했습니다." }
+        .fileExporter(isPresented: $exporting, document: exportDocument, contentType: .json, defaultFilename: "eunhyo_backup") { result in
+            switch result { case .success: status = "백업 파일을 저장했습니다."; case .failure: status = "백업 저장에 실패했습니다." }
+        }
         .fileImporter(isPresented: $importing, allowedContentTypes: [.json]) { result in
-            do { let url = try result.get(); let access = url.startAccessingSecurityScopedResource(); defer { if access { url.stopAccessingSecurityScopedResource() } }; let data = try Data(contentsOf: url); let payload = try JSONDecoder().decode(BackupPayload.self, from: data); restore(payload); status = "백업 데이터를 복원했습니다." } catch { status = "백업 파일을 읽을 수 없습니다." }
+            do {
+                let url = try result.get()
+                let access = url.startAccessingSecurityScopedResource()
+                defer { if access { url.stopAccessingSecurityScopedResource() } }
+                let data = try Data(contentsOf: url)
+                let payload = try JSONDecoder().decode(BackupPayload.self, from: data)
+                restore(payload)
+                status = "백업 데이터를 복원했습니다."
+            } catch { status = "백업 파일을 읽을 수 없습니다." }
         }
     }
 
