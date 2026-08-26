@@ -1,0 +1,7 @@
+url:http://djustice-android.tumblr.com
+name:Jennifer
+email:Vanellope@gmail.com
+gender:female
+botmaster:Hari Vignesh Jayapalan
+organization:Medkumo
+version:0.0.1
