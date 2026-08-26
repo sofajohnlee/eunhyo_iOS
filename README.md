@@ -2,9 +2,9 @@
 
 SwiftUI native iOS port of `sofajohnlee/eunhyo2`.
 
-## Estimated port progress: 99%
+## Estimated port progress: 99.5%
 
-Progress is estimated by Android feature-module parity rather than raw file count. Major user-facing modules are implemented and the project now passes an actual Xcode 16.4 iOS Simulator build in GitHub Actions. Remaining work is primarily final device/UI validation and deeper parity for a few legacy assets and advanced AIML template behaviors.
+Progress is estimated by Android feature-module parity rather than raw file count. Major user-facing modules are implemented, Android Hari assets are synchronized automatically, and the project passes an actual Xcode 16.4 iOS Simulator build in GitHub Actions. Remaining work is primarily physical-device/UI validation and final visual/media parity checks that cannot be fully verified in headless CI.
 
 ## Implemented
 
@@ -31,7 +31,9 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - Settings and local learning-state storage
 - AIML-compatible core with `*` / `_` wildcard matching, substitutions and predicate state
 - Bundled AIML asset loader with Android Hari asset manifest, config/predicate/property loading and category parsing
-- AI chat now uses the bundled Hari AIML engine first and falls back to the native Swift learning rules
+- Advanced bundled AIML template rendering for `srai`, `set`, `get`, `think`, `random/li`, `condition`, `bot`, `date`, `star`, `request` and `response`
+- AI chat uses the bundled Hari AIML engine first and falls back to the native Swift learning rules
+- Recursive AIML redirection is depth-limited to prevent runaway `srai` loops
 - Android Hari AIML/config assets are synchronized automatically by `scripts/sync_android_assets.sh`
 - Hari resource folder is copied into the iOS application bundle
 - Typing practice, maze practice and board-game score tracker
@@ -43,12 +45,12 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - Xcode: 16.4
 - Target: iOS Simulator, Debug, iOS 17+
 - Android Hari asset synchronization: passed (12 AIML files, 8 config files)
-- `xcodebuild`: passed after fixing the AIML asset-loader type-inference error
+- Xcode build after advanced AIML renderer integration: passed
 - Code signing is disabled in CI because the workflow validates simulator compilation rather than App Store signing
 
 ## Android parity work remaining
 
-Remaining work is mainly final iPhone/iPad simulator and physical-device interaction review, richer handling of advanced AIML template tags such as `srai`, `set/get`, `random`, `bot` and conditional constructs, complete visual/media asset parity where Android-specific resources have no direct iOS equivalent, and broader legacy Android-data migration validation.
+Remaining work is mainly final iPhone/iPad physical-device interaction review, complete visual/media asset parity where Android-specific resources have no direct iOS equivalent, and broader legacy Android-data migration validation. These are final acceptance/QA items rather than known compile blockers.
 
 ## Run
 
