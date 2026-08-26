@@ -16,6 +16,8 @@ jobs:
         run: xcodebuild -version
       - name: Sync Android Hari assets
         run: bash scripts/sync_android_assets.sh
+      - name: Validate AIML parity
+        run: bash scripts/validate_aiml_parity.sh
       - name: Build for iOS Simulator
         run: |
           set -o pipefail
