@@ -2,9 +2,9 @@
 
 SwiftUI native iOS port of `sofajohnlee/eunhyo2`.
 
-## Estimated port progress: 92%
+## Estimated port progress: 96%
 
-Progress is estimated by Android feature-module parity rather than raw file count. Nearly all major user-facing learning modules now have native SwiftUI equivalents. The remaining work is concentrated in AIML/legacy asset parity, advanced interactions, migration depth, and final Xcode/device validation.
+Progress is estimated by Android feature-module parity rather than raw file count. Nearly all major user-facing modules now have native SwiftUI equivalents. Remaining work is concentrated in complete legacy asset parity, broader migration coverage, automated build verification, and final Xcode simulator/device validation.
 
 ## Implemented
 
@@ -15,7 +15,7 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - Math arithmetic practice, scoring, GCD/LCM, measurement conversion, progress dashboard and learning-state selection
 - Hanja study, speech and starter radical groups
 - History and learning utilities
-- Geometry categories and native SwiftUI Canvas previews
+- Geometry categories, Canvas previews and interactive size/rotation controls
 - Graph tools / Desmos link
 - World country/capital search
 - OX Golden Bell quiz
@@ -29,12 +29,18 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - Study-mail compose workflow via iOS mail handler
 - JSON learning-data backup and restore baseline
 - Settings and local learning-state storage
-- AI learning chat baseline
+- AIML-compatible core with `*` / `_` wildcard matching, substitutions and predicate state
 - Typing practice, maze practice and board-game score tracker
+
+## Build-safety work completed
+
+- Xcode target explicitly includes all Swift source modules through `AIMLCore.swift`
+- Compatibility aliases added for earlier menu type names (`PDFLibraryView`, `SportsVideosView`, `MagicVideosView`)
+- Main navigation now exposes the AIML-compatible chat and interactive geometry directly
 
 ## Android parity work remaining
 
-Major remaining work includes richer AIML assets/chat behavior, complete legacy phonics/education-link assets, advanced interactive geometry, remaining Korean-book image assets, complete media/song asset parity, broader Android-to-iOS data migration coverage, final bundled assets, automated build checks, and Xcode simulator/device validation.
+Remaining work includes complete legacy AIML asset/template loading, complete phonics and education-link resource parity, remaining Korean-book image assets, complete media/song asset parity, broader Android-to-iOS data migration coverage, automated build checks, and Xcode simulator/device validation.
 
 ## Run
 
