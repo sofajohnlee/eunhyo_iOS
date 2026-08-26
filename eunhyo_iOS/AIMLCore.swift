@@ -108,8 +108,8 @@ final class SwiftAIMLChatEngine {
 
 struct AIMLChatView: View {
     @State private var input = ""
-    @State private var messages: [AIChatMessage] = [.init(text: "AIML 호환 학습 채팅입니다. 무엇을 공부할까요?", isUser: false)]
-    private let engine = SwiftAIMLChatEngine()
+    @State private var messages: [AIChatMessage] = [.init(text: "Hari AIML 학습 채팅입니다. 무엇을 공부할까요?", isUser: false)]
+    private let engine = BundledAIMLChatEngine()
     var body: some View {
         VStack(spacing: 0) {
             ScrollViewReader { proxy in
