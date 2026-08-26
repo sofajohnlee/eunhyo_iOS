@@ -2,9 +2,9 @@
 
 SwiftUI native iOS port of `sofajohnlee/eunhyo2`.
 
-## Estimated port progress: 83%
+## Estimated port progress: 92%
 
-Progress is estimated by Android feature-module parity rather than raw file count. Most user-facing learning modules now have native SwiftUI equivalents; the largest remaining gaps are legacy assets, richer file/media handling, AIML parity, and final Xcode/device validation.
+Progress is estimated by Android feature-module parity rather than raw file count. Nearly all major user-facing learning modules now have native SwiftUI equivalents. The remaining work is concentrated in AIML/legacy asset parity, advanced interactions, migration depth, and final Xcode/device validation.
 
 ## Implemented
 
@@ -20,11 +20,13 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 - World country/capital search
 - OX Golden Bell quiz
 - Educational personality play quiz
-- PDF file selection baseline
-- Native drawing canvas with undo/clear
+- PDF file selection plus PDFKit in-app rendering
+- Native drawing canvas, background image import, undo/clear and PNG export
 - Education links baseline
 - Sports YouTube links and magic catalog
 - Media library with major Android video catalog entries
+- Gallery multi-image selection and slideshow
+- Study-mail compose workflow via iOS mail handler
 - JSON learning-data backup and restore baseline
 - Settings and local learning-state storage
 - AI learning chat baseline
@@ -32,7 +34,7 @@ Progress is estimated by Android feature-module parity rather than raw file coun
 
 ## Android parity work remaining
 
-Major remaining work includes richer AIML assets/chat behavior, complete legacy phonics/education-link assets, in-app PDF rendering, drawing image import/export, advanced interactive geometry, remaining Korean-book image assets, complete media/song catalog parity, legacy gallery/slideshow, study-mail workflow, broader data migration coverage, final bundled assets, automated build checks, and Xcode simulator/device validation.
+Major remaining work includes richer AIML assets/chat behavior, complete legacy phonics/education-link assets, advanced interactive geometry, remaining Korean-book image assets, complete media/song asset parity, broader Android-to-iOS data migration coverage, final bundled assets, automated build checks, and Xcode simulator/device validation.
 
 ## Run
 
