@@ -21,8 +21,10 @@ struct ContentView: View {
                 Section("Android 기능 이식") {
                     NavigationLink { FullFeatureMenuView() } label: { Label("전체 학습 기능", systemImage: "square.grid.2x2") }
                     NavigationLink("AI 학습 채팅", destination: AIChatView())
-                    NavigationLink("PDF 자료실", destination: PdfLibraryView())
-                    NavigationLink("그림 연습", destination: DrawingPracticeView())
+                    NavigationLink("PDF 앱 내부 뷰어", destination: RichPdfLibraryView())
+                    NavigationLink("그림 연습·PNG 저장", destination: RichDrawingView())
+                    NavigationLink("갤러리·슬라이드쇼", destination: GallerySlideshowView())
+                    NavigationLink("학습메일", destination: StudyMailView())
                     NavigationLink("영어 문장 가져오기", destination: EnglishSentenceImportView())
                 }
                 Section {
@@ -58,8 +60,10 @@ struct SchoolMenuView: View {
                 NavigationLink("파닉스", destination: PhonicsColorView())
                 NavigationLink("영어 단어 연습", destination: EnglishWordPracticeView())
                 NavigationLink("영어 문장 가져오기", destination: EnglishSentenceImportView())
-                NavigationLink("PDF 자료실", destination: PdfLibraryView())
-                NavigationLink("그림 연습", destination: DrawingPracticeView())
+                NavigationLink("PDF 앱 내부 뷰어", destination: RichPdfLibraryView())
+                NavigationLink("그림 연습·PNG 저장", destination: RichDrawingView())
+                NavigationLink("갤러리·슬라이드쇼", destination: GallerySlideshowView())
+                NavigationLink("학습메일", destination: StudyMailView())
                 NavigationLink("맞춤법 연습", destination: KoreanSpellingPracticeView())
                 NavigationLink("관용 표현", destination: KoreanIdiomPracticeView())
                 NavigationLink("최대공약수·최소공배수", destination: GcdLcmView())
